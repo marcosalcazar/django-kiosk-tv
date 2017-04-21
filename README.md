@@ -1,1 +1,1 @@
-# django-kiosk-tv
+# django-wall-tv
