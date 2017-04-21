@@ -1,8 +1,12 @@
 appdirs==1.4.3
 Django==1.11
+django-embed-video==1.1.0
+django-ordered-model==1.4.1
+django-polymorphic==1.1
 olefile==0.44
 packaging==16.8
 Pillow==4.1.0
 pkg-resources==0.0.0
 pytz==2017.2
+requests==2.13.0
 six==1.10.0
