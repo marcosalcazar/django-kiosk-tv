@@ -1,42 +1,11 @@
 <html>
   <head>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'unslider/css/unslider.css' %}"/>
-    <link rel="stylesheet" href="{% static 'unslider/css/unslider-dots.css' %}"/>
-    <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'unslider/js/unslider-min.js' %}"></script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $('.slider').unslider({
-                animation: 'fade',
-                autoplay: true,
-                arrows: false
-            });
-        });
-    </script>
-    <style type="text/css">
-      * {
-        background-color: #d33131;
-      }
-
-      .row > div {
-        #border: 2px solid #3a3c4b;
-        overflow-y: hidden;
-        height: 100%;
-
-      }
-
-      .padding {
-        padding: 15px;
-      }
-
-      .nopadding {
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-    </style>
+    <link rel="stylesheet" href="{% static 'libs/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/carousel_fade.css' %}"/>
+    <script src="{% static 'libs/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
   </head>
   <body>
     <div class="container-fluid">

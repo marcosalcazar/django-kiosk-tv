@@ -1,0 +1,19 @@
+* {
+    background-color: #d33131;
+}
+
+.row > div {
+    #border: 2px solid #3a3c4b;
+    overflow-y: hidden;
+    height: 100%;
+
+}
+
+.padding {
+    padding: 15px;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}

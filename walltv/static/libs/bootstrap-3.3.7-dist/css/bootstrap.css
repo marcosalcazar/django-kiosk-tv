@@ -3,7 +3,7 @@
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.carousel_fade.css v3.0.3 | MIT License | github.com/necolas/normalize.carousel_fade.css */
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -6754,4 +6754,4 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+/*# sourceMappingURL=bootstrap.carousel_fade.css.map */

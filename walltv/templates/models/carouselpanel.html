@@ -1,38 +1,3 @@
-<style>
-  /* from http://codepen.io/transportedman/pen/NPWRGq */
-.carousel-fade .carousel-inner .item {
-  -webkit-transition-property: opacity;
-  transition-property: opacity;
-}
-.carousel-fade .carousel-inner .item,
-.carousel-fade .carousel-inner .active.left,
-.carousel-fade .carousel-inner .active.right {
-  opacity: 0;
-}
-.carousel-fade .carousel-inner .active,
-.carousel-fade .carousel-inner .next.left,
-.carousel-fade .carousel-inner .prev.right {
-  opacity: 1;
-}
-.carousel-fade .carousel-inner .next,
-.carousel-fade .carousel-inner .prev,
-.carousel-fade .carousel-inner .active.left,
-.carousel-fade .carousel-inner .active.right {
-  left: 0;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-}
-.carousel-fade .carousel-control {
-  z-index: 2;
-}
-html,
-body,
-.carousel,
-.carousel-inner,
-.carousel-inner .item {
-  height: 100%;
-}
-</style>
 <div id="carousel-{{ model.name|slugify }}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="{{ model.interval }}" data-pause="null">
   <!-- Indicators -->
   <!-- ol class="carousel-indicators">
