@@ -48,8 +48,14 @@ class ModelRenderMixin:
 
 class Row(ModelRenderMixin, OrderedModel):
     template_path = 'models/row.html'
+    parent = models.ForeignKey('self', related_name='childs', verbose_name=_('Parent'), null=True, blank=True)
     name = models.CharField(max_length=255, verbose_name=_('Name'))
-    height = models.PositiveSmallIntegerField(help_text=_('Percentage used vertically of the screen'))
+    columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
+                                               verbose_name=_('Columns'),
+                                               default=12)
+    height = models.PositiveSmallIntegerField(help_text=_('Percentage used vertically of the screen'),
+                                              verbose_name=_('Height'),
+                                              default=100)
 
     class Meta(OrderedModel.Meta):
         verbose_name = _('Row')
@@ -63,7 +69,8 @@ class Panel(PolymorphicModel, OrderedModel, ModelRenderMixin):
     parent = models.ForeignKey(Row, related_name='panels', verbose_name=_('Parent'))
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
-                                               verbose_name=_('Columns'))
+                                               verbose_name=_('Columns'),
+                                               default=12)
 
     class Meta(OrderedModel.Meta):
         verbose_name = _('Panel')
@@ -100,7 +107,7 @@ class VideoPanel(Panel):
 
 
 class ImagePanel(Panel):
-    image = models.ImageField(verbose_name=_('Image'))
+    image = models.ImageField(verbose_name=_('Image'), upload_to='uploads')
 
     class Meta(Panel.Meta):
         verbose_name = _('Image panel')
@@ -111,16 +118,23 @@ class ImagePanel(Panel):
 
 
 class CarouselPanel(Panel):
-    wait_time = models.PositiveSmallIntegerField(verbose_name=_('Wait time'))
+    interval = models.PositiveSmallIntegerField(
+        help_text=_('The amount of time to delay between automatically cycling an item.'),
+        verbose_name=_('Interval'),
+        default=5
+    )
 
     class Meta(Panel.Meta):
         verbose_name = _('Carousel panel')
         verbose_name_plural = _('Carousel panels')
 
+    def get_template_path(self):
+        return 'models/carouselpanel.html'
 
-class ImageForCarouselField(Panel):
-    carousel = models.ForeignKey(CarouselPanel)
-    image_file = models.ImageField(verbose_name=_('Image file'))
+
+class ImageForCarouselPanel(models.Model):
+    carousel = models.ForeignKey(CarouselPanel, related_name='images')
+    image_file = models.ImageField(verbose_name=_('Image file'), upload_to='uploads')
 
     class Meta(Panel.Meta):
         verbose_name = _('Image for carousel')

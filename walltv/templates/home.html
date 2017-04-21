@@ -2,32 +2,46 @@
   <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'unslider/css/unslider.css' %}"/>
+    <link rel="stylesheet" href="{% static 'unslider/css/unslider-dots.css' %}"/>
+    <script src="{% static 'jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'unslider/js/unslider-min.js' %}"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('.slider').unslider({
+                animation: 'fade',
+                autoplay: true,
+                arrows: false
+            });
+        });
+    </script>
     <style type="text/css">
       * {
         background-color: #d33131;
       }
+
       .row > div {
-        border: 2px solid #3a3c4b;
+        #border: 2px solid #3a3c4b;
         overflow-y: hidden;
         height: 100%;
+
       }
 
-      {% for row in rows %}
-        .row.{{ row.name|slugify }} {
-          background-color: {{ row.background_color }};
-          height: {{ row.height }}%;
-        }
-      {% endfor %}
+      .padding {
+        padding: 15px;
+      }
 
+      .nopadding {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
     </style>
   </head>
   <body>
     <div class="container-fluid">
       {% for row in rows %}
-        <div class="row {{ row.name|slugify }}">
-          <div class="col-xs-12">{{ row.render }}</div>
-        </div>
+        {{ row.render }}
       {% endfor %}
     </div>
   </body>

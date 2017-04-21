@@ -8,5 +8,5 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        context['rows'] = Row.objects.all()
+        context['rows'] = Row.objects.filter(parent__isnull=True).all()
         return context

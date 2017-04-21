@@ -4,12 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-21 01:58+0000\n"
+"POT-Creation-Date: 2017-04-21 23:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,134 +18,145 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: walltv/models.py:51 walltv/models.py:64
-msgid "Name"
-msgstr "Nombre"
-
-#: walltv/models.py:52
-msgid "Percentage used vertically of the screen"
-msgstr "Porcentage usado verticalmente de la pantalla"
-
-#: walltv/models.py:55
-msgid "Row"
-msgstr "Fila"
-
-#: walltv/models.py:56
-msgid "Rows"
-msgstr "Filas"
-
-#: walltv/models.py:63
+#: walltv/models.py:51 walltv/models.py:69
 msgid "Parent"
 msgstr "Padre"
 
-#: walltv/models.py:65
+#: walltv/models.py:52 walltv/models.py:70
+msgid "Name"
+msgstr "Nombre"
+
+#: walltv/models.py:53 walltv/models.py:71
 msgid "Columns in a row shouldn't exceed 12"
 msgstr "Columnas en una fila no deberían exceder 12"
 
-#: walltv/models.py:66
+#: walltv/models.py:54 walltv/models.py:72
 msgid "Columns"
 msgstr "Columnas"
 
-#: walltv/models.py:70
+#: walltv/models.py:56
+msgid "Percentage used vertically of the screen"
+msgstr "Porcentage usado verticalmente de la pantalla"
+
+#: walltv/models.py:57
+msgid "Height"
+msgstr "Altura"
+
+#: walltv/models.py:61
+msgid "Row"
+msgstr "Fila"
+
+#: walltv/models.py:62
+msgid "Rows"
+msgstr "Filas"
+
+#: walltv/models.py:76
 msgid "Panel"
 msgstr "Panel"
 
-#: walltv/models.py:71
+#: walltv/models.py:77
 msgid "Panels"
 msgstr "Paneles"
 
-#: walltv/models.py:84
+#: walltv/models.py:91
 msgid "Video URL"
 msgstr "URL del video"
 
-#: walltv/models.py:90
+#: walltv/models.py:97
 msgid "URL video panel"
 msgstr "Panel de video con URL"
 
-#: walltv/models.py:91
+#: walltv/models.py:98
 msgid "URL video panels"
 msgstr "Paneles de video con URL"
 
-#: walltv/models.py:95
+#: walltv/models.py:102
 msgid "File"
 msgstr "Archivo"
 
-#: walltv/models.py:98
+#: walltv/models.py:105
 msgid "Video panel"
 msgstr "Panel de video"
 
-#: walltv/models.py:99
+#: walltv/models.py:106
 msgid "Video panels"
 msgstr "Paneles de video"
 
-#: walltv/models.py:103
+#: walltv/models.py:110
 msgid "Image"
 msgstr "Imagen"
 
-#: walltv/models.py:106
+#: walltv/models.py:113
 msgid "Image panel"
 msgstr "Panel de imagen"
 
-#: walltv/models.py:107
+#: walltv/models.py:114
 msgid "Image panels"
 msgstr "Paneles de imagen"
 
-#: walltv/models.py:114
-msgid "Wait time"
-msgstr "Tiempo de espera"
+#: walltv/models.py:122
+msgid "The amount of time to delay between automatically cycling an item."
+msgstr "Tiempo de espera para automáticamente mover al siguiente item"
 
-#: walltv/models.py:117
+#: walltv/models.py:123
+msgid "Interval"
+msgstr "Intervalo"
+
+#: walltv/models.py:128
 msgid "Carousel panel"
 msgstr "Panel de carrusel de imágenes"
 
-#: walltv/models.py:118
+#: walltv/models.py:129
 msgid "Carousel panels"
 msgstr "Paneles de carrusel de imágenes"
 
-#: walltv/models.py:123
+#: walltv/models.py:137
 msgid "Image file"
 msgstr "Archivo de imagen"
 
-#: walltv/models.py:126
+#: walltv/models.py:140
 msgid "Image for carousel"
 msgstr "Imagen para carrusel"
 
-#: walltv/models.py:127
+#: walltv/models.py:141
 msgid "Images for carousel"
 msgstr "Imagenes para carrusel"
 
-#: walltv/models.py:131
+#: walltv/models.py:145
 msgid "Text"
 msgstr "Texto"
 
-#: walltv/models.py:134
+#: walltv/models.py:148
 msgid "Text panel"
 msgstr "Panel de texto"
 
-#: walltv/models.py:135
+#: walltv/models.py:149
 msgid "Text panels"
 msgstr "Paneles de texto"
 
-#: walltv/models.py:139
+#: walltv/models.py:153
 msgid "Location"
 msgstr "Ubicación"
 
-#: walltv/models.py:142
+#: walltv/models.py:156
 msgid "Weather panel"
 msgstr "Panel de tiempo"
 
-#: walltv/models.py:143
+#: walltv/models.py:157
 msgid "Weather panels"
 msgstr "Paneles de tiempo"
 
-#: walltv/models.py:147
+#: walltv/models.py:161
 msgid "URL"
 msgstr "URL"
 
-#: walltv/models.py:150
+#: walltv/models.py:164
 msgid "RSS panel"
 msgstr "Panel de RSS"
 
-#: walltv/models.py:151
+#: walltv/models.py:165
 msgid "RSS panels"
 msgstr "Paneles de RSS"
+
+#~ msgid "Wait time"
+#~ msgstr "Tiempo de espera"

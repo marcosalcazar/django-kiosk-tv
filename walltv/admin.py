@@ -4,19 +4,19 @@ from polymorphic.admin.childadmin import PolymorphicChildModelAdmin
 from polymorphic.admin.filters import PolymorphicChildModelFilter
 from polymorphic.admin.parentadmin import PolymorphicParentModelAdmin
 
-from walltv.models import Row, URLVideoPanel, Panel, ImagePanel
+from walltv.models import Row, URLVideoPanel, Panel, ImagePanel, CarouselPanel, ImageForCarouselPanel
 
 
 @admin.register(Row)
 class RowAdmin(OrderedModelAdmin):
-    list_display = ('name', 'height', 'move_up_down_links')
+    list_display = ('name', 'parent', 'height', 'columns', 'move_up_down_links')
 
 
 @admin.register(Panel)
 class PanelParentAdmin(PolymorphicParentModelAdmin, OrderedModelAdmin):
     """ The parent model admin """
     base_model = Panel
-    child_models = (URLVideoPanel, ImagePanel, )
+    child_models = (URLVideoPanel, ImagePanel,)
     list_filter = (PolymorphicChildModelFilter,)  # This is optional.
     list_display = ('name', 'move_up_down_links')
 
@@ -46,3 +46,16 @@ class URLVideoPanelAdmin(PanelChildAdmin):
 class ImagePanelAdmin(PanelChildAdmin):
     base_model = ImagePanel
     show_in_index = True
+
+
+class ImageForCarouselPanelAdmin(admin.TabularInline):
+    model = ImageForCarouselPanel
+
+
+@admin.register(CarouselPanel)
+class CarouselPanelAdmin(PanelChildAdmin):
+    base_model = CarouselPanel
+    show_in_index = True
+    inlines = [
+        ImageForCarouselPanelAdmin
+    ]

@@ -1,3 +1,16 @@
-{% for panel in model.panels.all.get_real_instances %}
-<div class="col-xs-{{ panel.columns }}">{{ panel.render }}</div>
-{% endfor %}
+<style>
+  .row#{{ row.name|slugify }} {
+    background-color: {{ row.background_color }};
+    height: {{ row.height }}%;
+  }
+</style>
+<div class="row" id="{{ model.name|slugify }}">
+  {% for child in model.childs.all %}
+    <div class="col-xs-{{ child.columns }}">
+      {{ child.render }}
+    </div>
+  {% endfor %}
+  {% for panel in model.panels.all.get_real_instances %}
+    <div class="col-xs-{{ panel.columns }} padding">{{ panel.render }}</div>
+  {% endfor %}
+</div>
