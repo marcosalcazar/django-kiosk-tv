@@ -1,1 +1,3 @@
-"this is a row" -> {{ model.name }}
+{% for panel in model.panels.all.get_real_instances %}
+<div class="col-xs-{{ panel.columns }}">{{ panel.render }}</div>
+{% endfor %}

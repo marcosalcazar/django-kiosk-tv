@@ -4,6 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
+from django.utils.translation import ugettext as _
 from embed_video.fields import EmbedVideoField
 from ordered_model.models import OrderedModel
 from polymorphic.models import PolymorphicModel
@@ -47,37 +48,67 @@ class ModelRenderMixin:
 
 class Row(ModelRenderMixin, OrderedModel):
     template_path = 'models/row.html'
-    name = models.CharField(max_length=255)
-    height = models.PositiveSmallIntegerField(help_text='Percentage used vertically of the screen')
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    height = models.PositiveSmallIntegerField(help_text=_('Percentage used vertically of the screen'))
+    # background_color = ColorPicker()
 
     class Meta(OrderedModel.Meta):
         pass
 
+    def __str__(self):
+        return self.name
 
-class Frame(ModelRenderMixin, PolymorphicModel, OrderedModel):
-    parent = models.ForeignKey(Row)
-    name = models.CharField(max_length=255)
-    columns = models.PositiveSmallIntegerField(help_text='Columns in a row shouldn\'t exceed 12')
 
-    def get_render_template(self):
+class Panel(PolymorphicModel, ModelRenderMixin, OrderedModel):
+    parent = models.ForeignKey(Row, related_name='panels', verbose_name=_('Parent'))
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
+                                               verbose_name=_('Columns'))
+
+    def get_template_path(self):
         raise NotImplementedError()
 
+    def __str__(self):
+        return self.name
 
-class URLVideoFrame(Frame):
+
+class URLVideoPanel(Panel):
     """
     Used for Youtube/Vimeo/soundcloud
     """
-    video_url = EmbedVideoField()
+    video_url = EmbedVideoField(verbose_name=_('Video URL'))
+
+    def get_template_path(self):
+        return 'models/urlvideopanel.html'
 
 
-class VideoFrame(Frame):
-    file = models.FileField()
+class VideoPanel(Panel):
+    file = models.FileField(verbose_name=_('File'))
 
 
-class CarouselFrame(Frame):
-    wait_time = models.PositiveSmallIntegerField()
+class ImagePanel(Panel):
+    image = models.ImageField(verbose_name=_('Image'))
+
+    def get_template_path(self):
+        return 'models/imagepanel.html'
+
+
+class CarouselPanel(Panel):
+    wait_time = models.PositiveSmallIntegerField(verbose_name=_('Wait time'))
 
 
 class ImageForImagesField(models.Model):
-    carousel = models.ForeignKey(CarouselFrame)
-    image = models.ImageField()
+    carousel = models.ForeignKey(CarouselPanel)
+    image = models.ImageField(verbose_name=_('Image'))
+
+
+class TextPanel(models.Model):
+    text = models.TextField(verbose_name=_('Text'))
+
+
+class WeatherPanel(models.Model):
+    location = models.CharField(max_length=255, verbose_name=_('Location'))
+
+
+class RSSPanel(models.Model):
+    url = models.URLField(verbose_name=_('URL'))

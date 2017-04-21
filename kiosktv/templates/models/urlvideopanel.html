@@ -1,0 +1,7 @@
+{% load embed_video_tags %}
+
+{% video model.video_url '100%x100%' %}
+
+{% video model.video_url query="rel=0&autoplay=1" is_secure=True as my_video %}
+    {{ my_video.url }} {# always with https #}
+{% endvideo %}

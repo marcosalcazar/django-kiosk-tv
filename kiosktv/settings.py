@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'ordered_model',
     'model_render',
+    'embed_video',
     'kiosktv',
 ]
 
