@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-21 01:40+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: walltv/models.py:51 walltv/models.py:64
+msgid "Name"
+msgstr "Nombre"
+
+#: walltv/models.py:52
+msgid "Percentage used vertically of the screen"
+msgstr "Porcentage usado verticalmente de la pantalla"
+
+#: walltv/models.py:55
+msgid "Row"
+msgstr "Fila"
+
+#: walltv/models.py:56
+msgid "Rows"
+msgstr "Filas"
+
+#: walltv/models.py:63
+msgid "Parent"
+msgstr "Padre"
+
+#: walltv/models.py:65
+msgid "Columns in a row shouldn't exceed 12"
+msgstr "Columnas en una fila no deberían exceder 12"
+
+#: walltv/models.py:66
+msgid "Columns"
+msgstr "Columnas"
+
+#: walltv/models.py:69
+msgid "Panel"
+msgstr "Panel"
+
+#: walltv/models.py:70
+msgid "Panels"
+msgstr "Paneles"
+
+#: walltv/models.py:83
+msgid "Video URL"
+msgstr "URL del video"
+
+#: walltv/models.py:89 walltv/models.py:105
+msgid "URL video panel"
+msgstr "Panel de video con URL"
+
+#: walltv/models.py:90 walltv/models.py:106
+msgid "URL video panels"
+msgstr "Paneles de video con URL"
+
+#: walltv/models.py:94
+msgid "File"
+msgstr "Archivo"
+
+#: walltv/models.py:97
+msgid "Video panel"
+msgstr "Panel de video"
+
+#: walltv/models.py:98
+msgid "Video panels"
+msgstr "Paneles de video"
+
+#: walltv/models.py:102
+msgid "Image"
+msgstr "Imagen"
+
+#: walltv/models.py:113
+msgid "Wait time"
+msgstr "Tiempo de espera"
+
+#: walltv/models.py:116
+msgid "Carousel panel"
+msgstr "Panel de carrusel de imágenes"
+
+#: walltv/models.py:117
+msgid "Carousel panels"
+msgstr "Paneles de carrusel de imágenes"
+
+#: walltv/models.py:122
+msgid "Image file"
+msgstr "Archivo de imagen"
+
+#: walltv/models.py:125
+msgid "Image for carousel"
+msgstr "Imagen para carrusel"
+
+#: walltv/models.py:126
+msgid "Images for carousel"
+msgstr "Imagenes para carrusel"
+
+#: walltv/models.py:130
+msgid "Text"
+msgstr "Texto"
+
+#: walltv/models.py:133
+msgid "Text panel"
+msgstr "Panel de texto"
+
+#: walltv/models.py:134
+msgid "Text panels"
+msgstr "Paneles de texto"
+
+#: walltv/models.py:138
+msgid "Location"
+msgstr "Ubicación"
+
+#: walltv/models.py:141
+msgid "Weather panel"
+msgstr "Panel de tiempo"
+
+#: walltv/models.py:142
+msgid "Weather panels"
+msgstr "Paneles de tiempo"
+
+#: walltv/models.py:146
+msgid "URL"
+msgstr ""
+
+#: walltv/models.py:149
+msgid "RSS panel"
+msgstr "Panel de RSS"
+
+#: walltv/models.py:150
+msgid "RSS panels"
+msgstr "Paneles de RSS"
