@@ -13,11 +13,15 @@ class RowAdmin(OrderedModelAdmin):
 
 
 @admin.register(Panel)
-class PanelParentAdmin(PolymorphicParentModelAdmin):
+class PanelParentAdmin(PolymorphicParentModelAdmin, OrderedModelAdmin):
     """ The parent model admin """
     base_model = Panel
-    child_models = (URLVideoPanel,)
+    child_models = (URLVideoPanel, ImagePanel, )
     list_filter = (PolymorphicChildModelFilter,)  # This is optional.
+    list_display = ('name', 'move_up_down_links')
+
+    def has_add_permission(self, request):
+        return False
 
 
 class PanelChildAdmin(PolymorphicChildModelAdmin):

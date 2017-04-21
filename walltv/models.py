@@ -59,7 +59,7 @@ class Row(ModelRenderMixin, OrderedModel):
         return self.name
 
 
-class Panel(PolymorphicModel, ModelRenderMixin, OrderedModel):
+class Panel(PolymorphicModel, OrderedModel, ModelRenderMixin):
     parent = models.ForeignKey(Row, related_name='panels', verbose_name=_('Parent'))
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
@@ -68,6 +68,7 @@ class Panel(PolymorphicModel, ModelRenderMixin, OrderedModel):
     class Meta(OrderedModel.Meta):
         verbose_name = _('Panel')
         verbose_name_plural = _('Panels')
+        ordering = ('order',)
 
     def __str__(self):
         return self.name
@@ -102,8 +103,8 @@ class ImagePanel(Panel):
     image = models.ImageField(verbose_name=_('Image'))
 
     class Meta(Panel.Meta):
-        verbose_name = _('URL video panel')
-        verbose_name_plural = _('URL video panels')
+        verbose_name = _('Image panel')
+        verbose_name_plural = _('Image panels')
 
     def get_template_path(self):
         return 'models/imagepanel.html'
