@@ -50,10 +50,10 @@ class Row(ModelRenderMixin, OrderedModel):
     template_path = 'models/row.html'
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     height = models.PositiveSmallIntegerField(help_text=_('Percentage used vertically of the screen'))
-    # background_color = ColorPicker()
 
     class Meta(OrderedModel.Meta):
-        pass
+        verbose_name = _('Row')
+        verbose_name_plural = _('Rows')
 
     def __str__(self):
         return self.name
@@ -65,11 +65,15 @@ class Panel(PolymorphicModel, ModelRenderMixin, OrderedModel):
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
                                                verbose_name=_('Columns'))
 
-    def get_template_path(self):
-        raise NotImplementedError()
+    class Meta(OrderedModel.Meta):
+        verbose_name = _('Panel')
+        verbose_name_plural = _('Panels')
 
     def __str__(self):
         return self.name
+
+    def get_template_path(self):
+        raise NotImplementedError()
 
 
 class URLVideoPanel(Panel):
@@ -81,13 +85,25 @@ class URLVideoPanel(Panel):
     def get_template_path(self):
         return 'models/urlvideopanel.html'
 
+    class Meta(Panel.Meta):
+        verbose_name = _('URL video panel')
+        verbose_name_plural = _('URL video panels')
+
 
 class VideoPanel(Panel):
     file = models.FileField(verbose_name=_('File'))
 
+    class Meta(Panel.Meta):
+        verbose_name = _('Video panel')
+        verbose_name_plural = _('Video panels')
+
 
 class ImagePanel(Panel):
     image = models.ImageField(verbose_name=_('Image'))
+
+    class Meta(Panel.Meta):
+        verbose_name = _('URL video panel')
+        verbose_name_plural = _('URL video panels')
 
     def get_template_path(self):
         return 'models/imagepanel.html'
@@ -96,19 +112,39 @@ class ImagePanel(Panel):
 class CarouselPanel(Panel):
     wait_time = models.PositiveSmallIntegerField(verbose_name=_('Wait time'))
 
+    class Meta(Panel.Meta):
+        verbose_name = _('Carousel panel')
+        verbose_name_plural = _('Carousel panels')
 
-class ImageForImagesField(models.Model):
+
+class ImageForCarouselField(Panel):
     carousel = models.ForeignKey(CarouselPanel)
-    image = models.ImageField(verbose_name=_('Image'))
+    image_file = models.ImageField(verbose_name=_('Image file'))
+
+    class Meta(Panel.Meta):
+        verbose_name = _('Image for carousel')
+        verbose_name_plural = _('Images for carousel')
 
 
-class TextPanel(models.Model):
+class TextPanel(Panel):
     text = models.TextField(verbose_name=_('Text'))
 
+    class Meta(Panel.Meta):
+        verbose_name = _('Text panel')
+        verbose_name_plural = _('Text panels')
 
-class WeatherPanel(models.Model):
+
+class WeatherPanel(Panel):
     location = models.CharField(max_length=255, verbose_name=_('Location'))
 
+    class Meta(Panel.Meta):
+        verbose_name = _('Weather panel')
+        verbose_name_plural = _('Weather panels')
 
-class RSSPanel(models.Model):
+
+class RSSPanel(Panel):
     url = models.URLField(verbose_name=_('URL'))
+
+    class Meta(Panel.Meta):
+        verbose_name = _('RSS panel')
+        verbose_name_plural = _('RSS panels')
