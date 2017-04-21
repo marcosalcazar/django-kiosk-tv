@@ -4,7 +4,7 @@ from polymorphic.admin.childadmin import PolymorphicChildModelAdmin
 from polymorphic.admin.filters import PolymorphicChildModelFilter
 from polymorphic.admin.parentadmin import PolymorphicParentModelAdmin
 
-from kiosktv.models import Row, URLVideoPanel, Panel, ImagePanel
+from walltv.models import Row, URLVideoPanel, Panel, ImagePanel
 
 
 @admin.register(Row)

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import embed_video.fields
-import kiosktv.models
+import walltv.models
 
 
 class Migration(migrations.Migration):
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(kiosktv.models.ModelRenderMixin, models.Model),
+            bases=(walltv.models.ModelRenderMixin, models.Model),
         ),
         migrations.CreateModel(
             name='Row',
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 'ordering': ('order',),
                 'abstract': False,
             },
-            bases=(kiosktv.models.ModelRenderMixin, models.Model),
+            bases=(walltv.models.ModelRenderMixin, models.Model),
         ),
         migrations.CreateModel(
             name='RSSPanel',
@@ -75,51 +75,51 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CarouselPanel',
             fields=[
-                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='kiosktv.Panel')),
+                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='walltv.Panel')),
                 ('wait_time', models.PositiveSmallIntegerField(verbose_name='Wait time')),
             ],
             options={
                 'abstract': False,
             },
-            bases=('kiosktv.panel',),
+            bases=('walltv.panel',),
         ),
         migrations.CreateModel(
             name='ImagePanel',
             fields=[
-                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='kiosktv.Panel')),
+                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='walltv.Panel')),
                 ('image', models.ImageField(upload_to='', verbose_name='Image')),
             ],
             options={
                 'abstract': False,
             },
-            bases=('kiosktv.panel',),
+            bases=('walltv.panel',),
         ),
         migrations.CreateModel(
             name='URLVideoPanel',
             fields=[
-                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='kiosktv.Panel')),
+                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='walltv.Panel')),
                 ('video_url', embed_video.fields.EmbedVideoField(verbose_name='Video URL')),
             ],
             options={
                 'abstract': False,
             },
-            bases=('kiosktv.panel',),
+            bases=('walltv.panel',),
         ),
         migrations.CreateModel(
             name='VideoPanel',
             fields=[
-                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='kiosktv.Panel')),
+                ('panel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='walltv.Panel')),
                 ('file', models.FileField(upload_to='', verbose_name='File')),
             ],
             options={
                 'abstract': False,
             },
-            bases=('kiosktv.panel',),
+            bases=('walltv.panel',),
         ),
         migrations.AddField(
             model_name='panel',
             name='parent',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='panels', to='kiosktv.Row', verbose_name='Parent'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='panels', to='walltv.Row', verbose_name='Parent'),
         ),
         migrations.AddField(
             model_name='panel',
@@ -129,6 +129,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='imageforimagesfield',
             name='carousel',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='kiosktv.CarouselPanel'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='walltv.CarouselPanel'),
         ),
     ]

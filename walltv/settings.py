@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'ordered_model',
     'model_render',
     'embed_video',
-    'kiosktv',
+    'walltv',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'kiosktv.urls'
+ROOT_URLCONF = 'walltv.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'kiosktv.wsgi.application'
+WSGI_APPLICATION = 'walltv.wsgi.application'
 
 
 # Database
