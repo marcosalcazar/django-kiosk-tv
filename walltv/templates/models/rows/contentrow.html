@@ -1,10 +1,7 @@
-<style>
-  .row#{{ row.name|slugify }} {
-    background-color: {{ row.background_color }};
-    height: {{ row.height }}%;
-  }
-</style>
-<div class="row" id="{{ model.name|slugify }}">
+{% extends 'models/rows/row.html' %}
+{% block div_id %}content{% endblock %}
+{% block render_block %}
+<div class="row" >
   {% for child in model.childs.all %}
     <div class="col-xs-{{ child.columns }}">
       {{ child.render }}
@@ -14,3 +11,4 @@
     <div class="col-xs-{{ panel.columns }} padding">{{ panel.render }}</div>
   {% endfor %}
 </div>
+{% endblock %}

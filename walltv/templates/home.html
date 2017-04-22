@@ -9,9 +9,13 @@
   </head>
   <body>
     <div class="container-fluid">
-      {% for row in rows %}
-        {{ row.render }}
-      {% endfor %}
+      {% load solo_tags %}
+      {% get_solo 'walltv.HeaderRow' as header_row %}
+      {% get_solo 'walltv.ContentRow' as content_row %}
+      {% get_solo 'walltv.FooterRow' as footer_row %}
+      {{ header_row.render }}
+      {{ content_row.render }}
+      {{ footer_row.render }}
     </div>
   </body>
 </html>

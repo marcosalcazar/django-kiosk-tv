@@ -7,7 +7,9 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from embed_video.fields import EmbedVideoField
 from ordered_model.models import OrderedModel
+from paintstore.fields import ColorPickerField
 from polymorphic.models import PolymorphicModel
+from solo.models import SingletonModel
 
 
 class ModelRenderMixin:
@@ -46,27 +48,81 @@ class ModelRenderMixin:
         return mark_safe(rendered)
 
 
-class Row(ModelRenderMixin, OrderedModel):
-    template_path = 'models/row.html'
-    parent = models.ForeignKey('self', related_name='childs', verbose_name=_('Parent'), null=True, blank=True)
-    name = models.CharField(max_length=255, verbose_name=_('Name'))
+class GenericRowMixin(ModelRenderMixin, models.Model):
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
                                                verbose_name=_('Columns'),
                                                default=12)
     height = models.PositiveSmallIntegerField(help_text=_('Percentage used vertically of the screen'),
                                               verbose_name=_('Height'),
                                               default=100)
+    background_color = ColorPickerField(null=True, blank=True)
+    enabled = models.BooleanField(verbose_name=_('Enabled'), default=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+    def get_template_path(self):
+        return 'models/rows/row.html'
+
+
+class HeaderRow(GenericRowMixin, SingletonModel):
+    singleton_instance_id = 1
+    logo = models.ImageField(verbose_name=_('Logo'), upload_to='uploads', null=True, blank=True)
+    logo_alt_text = models.CharField(verbose_name=_('Logo alternative text'), max_length=255)
+
+    class Meta:
+        verbose_name = _('Header row')
+
+    def __str__(self):
+        return _('Header row')
+
+    def get_template_path(self):
+        return 'models/rows/headerrow.html'
+
+
+class ContentRow(GenericRowMixin, SingletonModel):
+    singleton_instance_id = 2
+
+    class Meta:
+        verbose_name = _('Content row')
+
+    def __str__(self):
+        return _('Content row')
+
+    def get_template_path(self):
+        return 'models/rows/contentrow.html'
+
+
+class FooterRow(GenericRowMixin, SingletonModel):
+    singleton_instance_id = 3
+    text = models.CharField(max_length=255, verbose_name=_('Text'))
+    url = models.URLField(verbose_name=_('URL'))
+
+    class Meta:
+        verbose_name = _('Footer row')
+
+    def __str__(self):
+        return _('Footer row')
+
+    def get_template_path(self):
+        return 'models/rows/footerrow.html'
+
+
+class Row(GenericRowMixin, OrderedModel):
+    name = models.CharField(max_length=255, verbose_name=_('Name'))
+    parent = models.ForeignKey('self', related_name='childs', verbose_name=_('Parent'), null=True, blank=True)
 
     class Meta(OrderedModel.Meta):
         verbose_name = _('Row')
         verbose_name_plural = _('Rows')
 
-    def __str__(self):
-        return self.name
-
 
 class Panel(PolymorphicModel, OrderedModel, ModelRenderMixin):
-    parent = models.ForeignKey(Row, related_name='panels', verbose_name=_('Parent'))
+    parent = models.ForeignKey(Row, related_name='panels', verbose_name=_('Parent'),
+                               null=True, blank=True)
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
                                                verbose_name=_('Columns'),
@@ -91,7 +147,7 @@ class URLVideoPanel(Panel):
     video_url = EmbedVideoField(verbose_name=_('Video URL'))
 
     def get_template_path(self):
-        return 'models/urlvideopanel.html'
+        return 'models/panels/urlvideopanel.html'
 
     class Meta(Panel.Meta):
         verbose_name = _('URL video panel')
@@ -114,7 +170,7 @@ class ImagePanel(Panel):
         verbose_name_plural = _('Image panels')
 
     def get_template_path(self):
-        return 'models/imagepanel.html'
+        return 'models/panels/imagepanel.html'
 
 
 class CarouselPanel(Panel):
@@ -129,7 +185,7 @@ class CarouselPanel(Panel):
         verbose_name_plural = _('Carousel panels')
 
     def get_template_path(self):
-        return 'models/carouselpanel.html'
+        return 'models/panels/carouselpanel.html'
 
 
 class ImageForCarouselPanel(models.Model):

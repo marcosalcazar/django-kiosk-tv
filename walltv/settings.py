@@ -38,6 +38,8 @@ INSTALLED_APPS = [
 
     'ordered_model',
     'embed_video',
+    'paintstore',
+    'solo',
     'walltv',
 ]
 
