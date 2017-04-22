@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 
-from .models import Row
+from walltv.models import HeaderRow, ContentRow, FooterRow
 
 
 class Home(TemplateView):
@@ -8,5 +8,7 @@ class Home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
-        context['rows'] = Row.objects.filter(parent__isnull=True).all()
+        context['header_row'] = HeaderRow.objects.get()
+        context['content_row'] = ContentRow.objects.get()
+        context['footer_row'] = FooterRow.objects.get()
         return context

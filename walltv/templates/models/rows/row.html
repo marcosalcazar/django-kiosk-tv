@@ -1,9 +1,9 @@
 <style>
-  .row#{{ model.name|slugify }} {
+  .row#row_{{ model.pk }} {
     height: {{ model.height }}%;
     {% if model.background_color %} background-color: {{ model.background_color }} !important; {% endif %}
   }
 </style>
-<div id="{% block div_id %}{{ model.name|slugify }}{% endblock %}">
+<div id="row_{{ model.pk }}">
   {% block render_block %}{% endblock %}
 </div>

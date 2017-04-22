@@ -3,31 +3,37 @@ from ordered_model.admin import OrderedModelAdmin
 from polymorphic.admin.childadmin import PolymorphicChildModelAdmin
 from polymorphic.admin.filters import PolymorphicChildModelFilter
 from polymorphic.admin.parentadmin import PolymorphicParentModelAdmin
-from solo.admin import SingletonModelAdmin
 
 from walltv.models import Row, URLVideoPanel, Panel, ImagePanel, CarouselPanel, ImageForCarouselPanel, HeaderRow, \
     FooterRow, ContentRow
 
 
+class MainRowAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(HeaderRow)
-class HeaderRowAdmin(SingletonModelAdmin):
+class HeaderRowAdmin(MainRowAdmin):
     pass
 
 
 @admin.register(ContentRow)
-class ContentRowAdmin(SingletonModelAdmin):
+class ContentRowAdmin(MainRowAdmin):
     pass
 
 
 @admin.register(FooterRow)
-class FooterRowAdmin(SingletonModelAdmin):
+class FooterRowAdmin(MainRowAdmin):
     pass
 
 
 @admin.register(Row)
 class RowAdmin(OrderedModelAdmin):
     list_display = ('name', 'parent', 'height', 'columns', 'move_up_down_links')
-
 
 
 @admin.register(Panel)

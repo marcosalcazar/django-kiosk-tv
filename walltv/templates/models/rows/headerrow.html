@@ -1,13 +1,20 @@
 {% extends 'models/rows/row.html' %}
 {% block div_id %}header{% endblock %}
 {% block render_block %}
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img alt="Brand" src="/media/cfm.png">
-      </a>
+<style>
+#walltv-header.navbar-default .navbar-brand {
+    color: rgba(119, 119, 119, 1);
+}
+#walltv-header.navbar-default {
+    background-color: rgba(248, 248, 248, 1);
+    border-bottom-width: 0px;
+}
+</style>
+<div id="walltv-header" class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Logo</a>
+        </div>
     </div>
-  </div>
-</nav>
+</div>
 {% endblock %}

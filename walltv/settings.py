@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'ordered_model',
     'embed_video',
     'paintstore',
-    'solo',
     'walltv',
 ]
 
@@ -119,3 +118,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+HEADER_ROW_PK = 1
+CONTENT_ROW_PK = 2
+FOOTER_ROW_PK = 3

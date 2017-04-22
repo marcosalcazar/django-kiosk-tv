@@ -9,7 +9,6 @@ from embed_video.fields import EmbedVideoField
 from ordered_model.models import OrderedModel
 from paintstore.fields import ColorPickerField
 from polymorphic.models import PolymorphicModel
-from solo.models import SingletonModel
 
 
 class ModelRenderMixin:
@@ -68,7 +67,7 @@ class GenericRowMixin(ModelRenderMixin, models.Model):
         return 'models/rows/row.html'
 
 
-class HeaderRow(GenericRowMixin, SingletonModel):
+class HeaderRow(GenericRowMixin):
     singleton_instance_id = 1
     logo = models.ImageField(verbose_name=_('Logo'), upload_to='uploads', null=True, blank=True)
     logo_alt_text = models.CharField(verbose_name=_('Logo alternative text'), max_length=255)
@@ -83,7 +82,7 @@ class HeaderRow(GenericRowMixin, SingletonModel):
         return 'models/rows/headerrow.html'
 
 
-class ContentRow(GenericRowMixin, SingletonModel):
+class ContentRow(GenericRowMixin):
     singleton_instance_id = 2
 
     class Meta:
@@ -96,10 +95,10 @@ class ContentRow(GenericRowMixin, SingletonModel):
         return 'models/rows/contentrow.html'
 
 
-class FooterRow(GenericRowMixin, SingletonModel):
+class FooterRow(GenericRowMixin):
     singleton_instance_id = 3
     text = models.CharField(max_length=255, verbose_name=_('Text'))
-    url = models.URLField(verbose_name=_('URL'))
+    url = models.URLField(verbose_name=_('URL'), null=True, blank=True)
 
     class Meta:
         verbose_name = _('Footer row')
