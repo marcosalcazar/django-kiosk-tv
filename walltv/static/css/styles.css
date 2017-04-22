@@ -1,19 +1,32 @@
+* {
+    box-sizing: border-box;
+}
+div {
+    box-sizing: border-box;
+}
+body, html {
+    height: 100%;
+}
+
 body {
     background-color: #d33131;
 }
-
-.row > div {
-    #border: 2px solid #3a3c4b;
-    overflow-y: hidden;
-    height: 100%;
-
+body > div {
+    margin: 0px;
 }
 
-.padding {
-    padding: 15px;
+.row {
+    border: 1px solid red;
+    height: 100%;
+    margin: 0px;
+}
+
+.row > div {
+    border: 1px solid #3a3c4b;
+    overflow-y: hidden;
+    height: 100%;
 }
 
 .nopadding {
-    padding: 0 !important;
-    margin: 0 !important;
+    padding: 0px;
 }

@@ -2,6 +2,7 @@
 {% block div_id %}footer{% endblock %}
 {% block render_block %}
 <footer>
-  {{ model.text }}
+  {% include 'models/rows/include/_render_row_childs.html' %}
+  {% include 'models/rows/include/_render_row_panels.html' %}
 </footer>
 {% endblock %}

@@ -1,0 +1,5 @@
+{% for child in model.childs.all %}
+  <div class="col-xs-{{ child.columns }}">
+    {{ child.render }}
+  </div>
+{% endfor %}

@@ -47,7 +47,7 @@ class ModelRenderMixin:
         return mark_safe(rendered)
 
 
-class GenericRowMixin(ModelRenderMixin, models.Model):
+class GenericRow(ModelRenderMixin, models.Model):
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
                                                verbose_name=_('Columns'),
                                                default=12)
@@ -57,18 +57,15 @@ class GenericRowMixin(ModelRenderMixin, models.Model):
     background_color = ColorPickerField(null=True, blank=True)
     enabled = models.BooleanField(verbose_name=_('Enabled'), default=True)
 
-    class Meta:
-        abstract = True
-
     def __str__(self):
         return self.name
 
-    def get_template_path(self):
-        return 'models/rows/row.html'
+    def get_sorted_panels(self):
+        panels = self.panels.all().get_real_instances()
+        return sorted(panels, key=lambda x: x.order)
 
 
-class HeaderRow(GenericRowMixin):
-    singleton_instance_id = 1
+class HeaderRow(GenericRow):
     logo = models.ImageField(verbose_name=_('Logo'), upload_to='uploads', null=True, blank=True)
     logo_alt_text = models.CharField(verbose_name=_('Logo alternative text'), max_length=255)
 
@@ -82,9 +79,7 @@ class HeaderRow(GenericRowMixin):
         return 'models/rows/headerrow.html'
 
 
-class ContentRow(GenericRowMixin):
-    singleton_instance_id = 2
-
+class ContentRow(GenericRow):
     class Meta:
         verbose_name = _('Content row')
 
@@ -95,10 +90,15 @@ class ContentRow(GenericRowMixin):
         return 'models/rows/contentrow.html'
 
 
-class FooterRow(GenericRowMixin):
-    singleton_instance_id = 3
+class FooterRow(GenericRow):
     text = models.CharField(max_length=255, verbose_name=_('Text'))
-    url = models.URLField(verbose_name=_('URL'), null=True, blank=True)
+    feed_url = models.URLField(verbose_name=_('URL'), null=True, blank=True)
+    feed_interval = models.PositiveSmallIntegerField(
+        help_text=_('The amount of time to delay between automatically cycling an item.'),
+        verbose_name=_('Interval'),
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = _('Footer row')
@@ -110,17 +110,20 @@ class FooterRow(GenericRowMixin):
         return 'models/rows/footerrow.html'
 
 
-class Row(GenericRowMixin, OrderedModel):
+class Row(GenericRow, OrderedModel):
     name = models.CharField(max_length=255, verbose_name=_('Name'))
-    parent = models.ForeignKey('self', related_name='childs', verbose_name=_('Parent'), null=True, blank=True)
+    parent = models.ForeignKey(GenericRow, related_name='childs', verbose_name=_('Parent'), null=True, blank=True)
 
     class Meta(OrderedModel.Meta):
         verbose_name = _('Row')
         verbose_name_plural = _('Rows')
 
+    def get_template_path(self):
+        return 'models/rows/contentrow.html'
+
 
 class Panel(PolymorphicModel, OrderedModel, ModelRenderMixin):
-    parent = models.ForeignKey(Row, related_name='panels', verbose_name=_('Parent'),
+    parent = models.ForeignKey(GenericRow, related_name='panels', verbose_name=_('Parent'),
                                null=True, blank=True)
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
@@ -202,6 +205,9 @@ class TextPanel(Panel):
     class Meta(Panel.Meta):
         verbose_name = _('Text panel')
         verbose_name_plural = _('Text panels')
+
+    def get_template_path(self):
+        return 'models/panels/textpanel.html'
 
 
 class WeatherPanel(Panel):

@@ -1,9 +1,3 @@
-<style>
-  .row#row_{{ model.pk }} {
-    height: {{ model.height }}%;
-    {% if model.background_color %} background-color: {{ model.background_color }} !important; {% endif %}
-  }
-</style>
-<div id="row_{{ model.pk }}">
+<div id="row_{{ model.pk }}" style="height: {{ model.height }}%; {% if model.background_color %} background-color: {{ model.background_color }} !important; {% endif %}">
   {% block render_block %}{% endblock %}
 </div>

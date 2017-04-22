@@ -1,14 +1,8 @@
 {% extends 'models/rows/row.html' %}
-{% block div_id %}content{% endblock %}
+{% block div_id %}content_{{ model.pk }}{% endblock %}
 {% block render_block %}
 <div class="row" >
-  {% for child in model.childs.all %}
-    <div class="col-xs-{{ child.columns }}">
-      {{ child.render }}
-    </div>
-  {% endfor %}
-  {% for panel in model.panels.all.get_real_instances %}
-    <div class="col-xs-{{ panel.columns }} padding">{{ panel.render }}</div>
-  {% endfor %}
+  {% include 'models/rows/include/_render_row_childs.html' %}
+  {% include 'models/rows/include/_render_row_panels.html' %}
 </div>
 {% endblock %}

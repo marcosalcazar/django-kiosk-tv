@@ -5,7 +5,7 @@ from polymorphic.admin.filters import PolymorphicChildModelFilter
 from polymorphic.admin.parentadmin import PolymorphicParentModelAdmin
 
 from walltv.models import Row, URLVideoPanel, Panel, ImagePanel, CarouselPanel, ImageForCarouselPanel, HeaderRow, \
-    FooterRow, ContentRow
+    FooterRow, ContentRow, TextPanel
 
 
 class MainRowAdmin(admin.ModelAdmin):
@@ -69,6 +69,12 @@ class URLVideoPanelAdmin(PanelChildAdmin):
 @admin.register(ImagePanel)
 class ImagePanelAdmin(PanelChildAdmin):
     base_model = ImagePanel
+    show_in_index = True
+
+
+@admin.register(TextPanel)
+class ImagePanelAdmin(PanelChildAdmin):
+    base_model = TextPanel
     show_in_index = True
 
 
