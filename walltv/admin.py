@@ -13,7 +13,7 @@ except ImportError:
 from django.utils.translation import ugettext as _
 
 from walltv.models import Row, URLVideoPanel, Panel, ImagePanel, CarouselPanel, ImageForCarouselPanel, HeaderRow, \
-    FooterRow, ContentRow, TextPanel, RSSOneLinePanel, RSSPanel
+    FooterRow, ContentRow, TextPanel, RSSOneLinePanel, RSSPanel, VideoPanel, WeatherPanel
 
 
 class MainRowAdmin(admin.ModelAdmin):
@@ -106,7 +106,16 @@ class RowAdmin(OrderedModelAdmin):
 class PanelParentAdmin(PolymorphicParentModelAdmin, OrderedModelAdmin):
     """ The parent model admin """
     base_model = Panel
-    child_models = (URLVideoPanel, ImagePanel, RSSOneLinePanel, RSSPanel, CarouselPanel)
+    child_models = (
+        URLVideoPanel,
+        VideoPanel,
+        ImagePanel,
+        CarouselPanel,
+        TextPanel,
+        WeatherPanel,
+        RSSPanel,
+        RSSOneLinePanel,
+    )
     list_filter = (PolymorphicChildModelFilter,)  # This is optional.
     list_display = ('name', 'move_up_down_links')
 
@@ -132,6 +141,12 @@ class PanelChildAdmin(PolymorphicChildModelAdmin):
 @admin.register(URLVideoPanel)
 class URLVideoPanelAdmin(PanelChildAdmin):
     base_model = URLVideoPanel
+    show_in_index = True
+
+
+@admin.register(VideoPanel)
+class VideoPanelAdmin(PanelChildAdmin):
+    base_model = VideoPanel
     show_in_index = True
 
 

@@ -108,8 +108,8 @@ class Row(GenericRow, OrderedModel):
     parent = models.ForeignKey(GenericRow, related_name='childs', verbose_name=_('Parent'), null=True, blank=True)
 
     class Meta(OrderedModel.Meta):
-        verbose_name = _('Row')
-        verbose_name_plural = _('Rows')
+        verbose_name = _('Custom row')
+        verbose_name_plural = _('Custom rows')
 
     def __str__(self):
         return self.name
@@ -158,6 +158,9 @@ class VideoPanel(Panel):
     class Meta(Panel.Meta):
         verbose_name = _('Video panel')
         verbose_name_plural = _('Video panels')
+
+    def get_template_path(self):
+        return 'models/panels/videopanel.html'
 
 
 class ImagePanel(Panel):
@@ -217,7 +220,7 @@ class WeatherPanel(Panel):
 
 
 class RSSPanel(Panel):
-    feed_url = models.URLField(verbose_name=_('URL'), null=True, blank=True)
+    feed_url = models.URLField(verbose_name=_('URL'))
     feed_interval = models.PositiveSmallIntegerField(
         help_text=_('The amount of time to delay between automatically cycling an item.'),
         verbose_name=_('Interval'),

@@ -65,7 +65,8 @@ def run():
     RSSOneLinePanel.objects.create(
         parent=f,
         name='footer_rss',
-        columns=9
+        columns=9,
+        url='http://losandes.com.ar/rss'
     )
 
     if settings.DEBUG:
