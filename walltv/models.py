@@ -47,7 +47,7 @@ class ModelRenderMixin:
         return mark_safe(rendered)
 
 
-class GenericRow(ModelRenderMixin, models.Model):
+class GenericRow(PolymorphicModel, ModelRenderMixin):
     columns = models.PositiveSmallIntegerField(help_text=_('Columns in a row shouldn\'t exceed 12'),
                                                verbose_name=_('Columns'),
                                                default=12)
@@ -57,15 +57,13 @@ class GenericRow(ModelRenderMixin, models.Model):
     background_color = ColorPickerField(null=True, blank=True)
     enabled = models.BooleanField(verbose_name=_('Enabled'), default=True)
 
-    def __str__(self):
-        return self.name
-
     def get_sorted_panels(self):
         panels = self.panels.all().get_real_instances()
-        return sorted(panels, key=lambda x: x.order)
+        return sorted(panels, key=lambda x: x.order, reverse=True)
 
 
 class HeaderRow(GenericRow):
+    singleton_instance_id = settings.HEADER_ROW_PK
     logo = models.ImageField(verbose_name=_('Logo'), upload_to='uploads', null=True, blank=True)
     logo_alt_text = models.CharField(verbose_name=_('Logo alternative text'), max_length=255)
 
@@ -80,6 +78,7 @@ class HeaderRow(GenericRow):
 
 
 class ContentRow(GenericRow):
+    singleton_instance_id = settings.CONTENT_ROW_PK
     class Meta:
         verbose_name = _('Content row')
 
@@ -91,14 +90,8 @@ class ContentRow(GenericRow):
 
 
 class FooterRow(GenericRow):
+    singleton_instance_id = settings.FOOTER_ROW_PK
     text = models.CharField(max_length=255, verbose_name=_('Text'))
-    feed_url = models.URLField(verbose_name=_('URL'), null=True, blank=True)
-    feed_interval = models.PositiveSmallIntegerField(
-        help_text=_('The amount of time to delay between automatically cycling an item.'),
-        verbose_name=_('Interval'),
-        null=True,
-        blank=True
-    )
 
     class Meta:
         verbose_name = _('Footer row')
@@ -117,6 +110,9 @@ class Row(GenericRow, OrderedModel):
     class Meta(OrderedModel.Meta):
         verbose_name = _('Row')
         verbose_name_plural = _('Rows')
+
+    def __str__(self):
+        return self.name
 
     def get_template_path(self):
         return 'models/rows/contentrow.html'
@@ -190,13 +186,15 @@ class CarouselPanel(Panel):
         return 'models/panels/carouselpanel.html'
 
 
-class ImageForCarouselPanel(models.Model):
+class ImageForCarouselPanel(OrderedModel):
     carousel = models.ForeignKey(CarouselPanel, related_name='images')
     image_file = models.ImageField(verbose_name=_('Image file'), upload_to='uploads')
+    order_with_respect_to = 'carousel'
 
     class Meta(Panel.Meta):
         verbose_name = _('Image for carousel')
         verbose_name_plural = _('Images for carousel')
+        ordering = ('order', )
 
 
 class TextPanel(Panel):
@@ -219,8 +217,20 @@ class WeatherPanel(Panel):
 
 
 class RSSPanel(Panel):
-    url = models.URLField(verbose_name=_('URL'))
+    feed_url = models.URLField(verbose_name=_('URL'), null=True, blank=True)
+    feed_interval = models.PositiveSmallIntegerField(
+        help_text=_('The amount of time to delay between automatically cycling an item.'),
+        verbose_name=_('Interval'),
+        default=5,
+        null=True,
+        blank=True
+    )
 
     class Meta(Panel.Meta):
         verbose_name = _('RSS panel')
         verbose_name_plural = _('RSS panels')
+
+
+class RSSOneLinePanel(RSSPanel):
+    def get_template_path(self):
+        return 'models/panels/rssonelinepanel.html'
