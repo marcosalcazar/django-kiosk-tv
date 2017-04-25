@@ -224,9 +224,7 @@ class RSSPanel(Panel):
     feed_interval = models.PositiveSmallIntegerField(
         help_text=_('The amount of time to delay between automatically cycling an item.'),
         verbose_name=_('Interval'),
-        default=5,
-        null=True,
-        blank=True
+        default=5
     )
 
     class Meta(Panel.Meta):

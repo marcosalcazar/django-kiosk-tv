@@ -1,6 +1,2 @@
-<script>
-    jQuery(function ($) {
-        $("#rss-feeds").rss("http://feeds.feedburner.com/premiumpixels")
-    })
-</script>
-<div id="rss-feeds"></div>
+{% load feedparser_tags %}
+{% feedparser_render model.feed_url template='models/panels/rssonelinepanel_render.html' %}

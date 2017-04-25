@@ -1,0 +1,18 @@
+{% load i18n %}
+<div id="rss-one-line">
+  <span class="title">{% trans 'News' %}</span>
+  <div id="rss-one-line-{{ model.name|slugify }}" class="carousel slide carousel-fade" data-ride="carousel"
+       data-interval="{{ model.feed_interval }}" data-pause="null">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      {% for entry in feed_content.entries %}
+        {% if entry.summary %}
+          <li class="item {% if forloop.first %}active{% endif %}"><span class="entry-title">{{ entry.title }}</span>
+            <span class="entry-summary">{{ entry.summary }}</span></li>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
