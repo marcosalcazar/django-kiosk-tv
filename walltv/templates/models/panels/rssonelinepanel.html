@@ -1,2 +1,10 @@
-{% load feedparser_tags %}
-{% feedparser_render model.feed_url template='models/panels/rssonelinepanel_render.html' %}
+{% load mathfilters %}
+<div>
+  <h1>News</h1>
+  <div id="rssonelinepanel-{{ model.pk }}"></div>
+</div>
+<script>
+    setInterval(function () {
+        $('#rssonelinepanel-{{ model.pk }}').load('{% url 'rssonelineview' pk=model.pk %}');
+    }, {{ model.feed_interval_time|mul:60000 }});
+</script>

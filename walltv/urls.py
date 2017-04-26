@@ -18,9 +18,11 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from walltv.views import RSSOneLineView
 from .views import Home
 
 urlpatterns = [
     url(r'^$', Home.as_view(), name='home'),
+    url(r'^rssonelineview/(?P<pk>[0-9]+)/$', RSSOneLineView.as_view(), name="rssonelineview"),
     url(r'^admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,4 +1,4 @@
-<div id="carousel-{{ model.name|slugify }}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="{{ model.interval }}" data-pause="null">
+<div id="carousel-{{ model.name|slugify }}" class="carousel slide carousel-fade" data-ride="carousel" data-interval="{{ model.interval*100 }}" data-pause="null">
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     {% for image in model.images.all %}

@@ -176,7 +176,7 @@ class ImagePanel(Panel):
 
 class CarouselPanel(Panel):
     interval = models.PositiveSmallIntegerField(
-        help_text=_('The amount of time to delay between automatically cycling an item.'),
+        help_text=_('The amount of time (in seconds) to delay between automatically cycling an item.'),
         verbose_name=_('Interval'),
         default=5
     )
@@ -222,9 +222,14 @@ class WeatherPanel(Panel):
 class RSSPanel(Panel):
     feed_url = models.URLField(verbose_name=_('URL'))
     feed_interval = models.PositiveSmallIntegerField(
-        help_text=_('The amount of time to delay between automatically cycling an item.'),
+        help_text=_('The amount of time (in seconds) to delay between automatically cycling an item.'),
         verbose_name=_('Interval'),
-        default=5
+        default=30
+    )
+    feed_reload_interval = models.PositiveSmallIntegerField(
+        help_text=_('The amount of time (in minutes) to delay until a reload of the feed.'),
+        verbose_name=_('Reload interval'),
+        default=30
     )
 
     class Meta(Panel.Meta):

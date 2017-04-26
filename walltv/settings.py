@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'embed_video',
     'paintstore',
     'django_feedparser',
+    'mathfilters',
     'walltv',
 ]
 if DEBUG:

@@ -1,8 +1,7 @@
-{% load i18n %}
+{% load mathfilters %}
 <div id="rss-one-line">
-  <span class="title">{% trans 'News' %}</span>
-  <div id="rss-one-line-{{ model.name|slugify }}" class="carousel slide carousel-fade" data-ride="carousel"
-       data-interval="{{ model.feed_interval }}" data-pause="null">
+  <div id="rss-one-line-{{ object.name|slugify }}" class="carousel slide carousel-fade" data-ride="carousel"
+       data-interval="{{ object.feed_interval|mul:1000 }}" data-pause="null">
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       {% for entry in feed_content.entries %}
@@ -14,5 +13,8 @@
     </div>
   </div>
 </div>
-
-
+<script>
+    $(document).ready(function () {
+        $("#rss-one-line-{{ object.name|slugify }}").carousel();
+    });
+</script>

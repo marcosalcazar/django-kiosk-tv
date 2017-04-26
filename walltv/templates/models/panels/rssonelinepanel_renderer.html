@@ -1,0 +1,2 @@
+{% load feedparser_tags %}
+{% feedparser_render object.feed_url template='models/panels/rssonelinepanel_feed_tmpl.html' expiration=3600 object=object %}
