@@ -1,10 +1,11 @@
 {% load mathfilters %}
 <div>
-  <h1>News</h1>
   <div id="rssonelinepanel-{{ model.pk }}"></div>
 </div>
 <script>
-    setInterval(function () {
-        $('#rssonelinepanel-{{ model.pk }}').load('{% url 'rssonelineview' pk=model.pk %}');
-    }, {{ model.feed_interval_time|mul:60000 }});
+  function reload(){
+      $('#rssonelinepanel-{{ model.pk }}').load('{% url 'rssonelineview' pk=model.pk %}');
+  }
+  reload();
+  setInterval(reload, {{ model.feed_reload_interval|mul:60000 }});
 </script>
